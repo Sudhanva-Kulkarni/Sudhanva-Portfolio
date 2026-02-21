@@ -121,8 +121,6 @@ function SkillBar({ name, logo, level, delay }) {
   const [hov, setHov] = useState(false);
   const isMobile = useIsMobile();
   const levelColor = level === "Advanced" ? "#c4a476" : level === "Intermediate" ? "#a0c4a0" : "rgba(232,224,213,0.45)";
-  const dotFill = level === "Advanced" ? levelColor : "none";
-  const dotStroke = levelColor;
   return (
     <div ref={ref} style={{ opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(14px)", transition: `all 0.5s ease ${delay}s` }}>
       <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
@@ -133,7 +131,7 @@ function SkillBar({ name, logo, level, delay }) {
         </div>
         {isMobile ? (
           <div style={{ display: "flex", gap: 3, flexShrink: 0, marginLeft: 6 }} title={level}>
-            {["Advanced","Intermediate","Beginner"].map((l, i) => {
+            {["Advanced", "Intermediate", "Beginner"].map((l, i) => {
               const filled = (level === "Advanced" && i <= 2) || (level === "Intermediate" && i <= 1) || (level === "Beginner" && i === 0);
               return <div key={i} style={{ width: 6, height: 6, borderRadius: "50%", background: filled ? levelColor : "transparent", border: `1px solid ${filled ? levelColor : "rgba(196,164,118,0.25)"}`, transition: "all 0.2s" }} />;
             })}
@@ -158,7 +156,6 @@ function ProjectCard({ project, index }) {
         style={{ position: "relative", overflow: "hidden", border: `1px solid ${hov ? "rgba(196,164,118,0.45)" : "rgba(196,164,118,0.12)"}`, background: hov ? "rgba(196,164,118,0.03)" : "rgba(10,10,10,0.85)", transition: "all 0.35s cubic-bezier(.23,1,.32,1)", transform: hov && !isMobile ? "translateY(-4px)" : "none", boxShadow: hov ? "0 24px 60px rgba(0,0,0,0.55)" : "none" }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1.5, background: "linear-gradient(90deg,transparent,#c4a476,transparent)", opacity: hov ? 1 : 0, transition: "opacity 0.3s" }} />
         <div style={{ position: "absolute", right: 16, bottom: -20, fontSize: isMobile ? "5rem" : "8rem", fontWeight: 900, color: "rgba(196,164,118,0.04)", fontFamily: "'Playfair Display', Georgia, serif", lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{id}</div>
-
         <div style={{ padding: isMobile ? "24px 20px" : "32px 36px" }}>
           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 18 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
@@ -181,9 +178,7 @@ function ProjectCard({ project, index }) {
               ))}
             </div>
           </div>
-
           <p style={{ fontSize: "0.83rem", color: "rgba(232,224,213,0.52)", lineHeight: 1.75, fontFamily: "'DM Sans', sans-serif", marginBottom: 20 }}>{desc}</p>
-
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 8, marginBottom: 22 }}>
             {features.map((f, i) => (
               <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, padding: "9px 12px", background: "rgba(196,164,118,0.03)", border: "1px solid rgba(196,164,118,0.07)", transition: "all 0.18s" }}
@@ -194,7 +189,6 @@ function ProjectCard({ project, index }) {
               </div>
             ))}
           </div>
-
           <div style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
             <Code2 size={11} color="rgba(196,164,118,0.45)" strokeWidth={1.5} />
             {stack.map(t => (
@@ -218,45 +212,6 @@ function SectionHead({ eyebrow, title, sub }) {
       </div>
       <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(1.8rem, 4.5vw, 3.2rem)", color: "#e8e0d5", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.02em" }}>{title}</h2>
       {sub && <p style={{ fontSize: "0.875rem", color: "rgba(232,224,213,0.42)", marginTop: 12, maxWidth: 500, lineHeight: 1.8, fontFamily: "'DM Sans', sans-serif" }}>{sub}</p>}
-    </div>
-  );
-}
-
-/* ─── ABOUT CARD ─────────────────────────────────────────────────────────────── */
-function AboutCard() {
-  const [ref, v] = useReveal(0.2);
-  return (
-    <div ref={ref} style={{ opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(50px)", transition: "all 0.9s cubic-bezier(.23,1,.32,1)" }}>
-      <div style={{ position: "relative", border: "1px solid rgba(196,164,118,0.2)", background: "linear-gradient(145deg,rgba(196,164,118,0.04),rgba(8,8,8,0.92))", padding: "36px 36px 0 36px", animation: "float 7s ease-in-out infinite" }}>
-        <div style={{ position: "absolute", top: -24, right: -24, width: 68, height: 68, border: "1px dashed rgba(196,164,118,0.28)", borderRadius: "50%", animation: "spinSlow 20s linear infinite", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#c4a476", boxShadow: "0 0 12px #c4a476" }} />
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
-          <div style={{ width: 56, height: 56, borderRadius: "50%", border: "1.5px solid rgba(196,164,118,0.4)", background: "rgba(196,164,118,0.07)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <User size={24} color="#c4a476" strokeWidth={1.5} />
-          </div>
-          <div>
-            <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.3rem", color: "#e8e0d5", fontWeight: 700, lineHeight: 1.2 }}>Sudhanva S Kulkarni</h3>
-            <p style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "#c4a476", fontFamily: "'DM Sans', sans-serif", marginTop: 3 }}>Full-Stack Developer · CSE Student</p>
-          </div>
-        </div>
-        <p style={{ fontSize: "0.82rem", color: "rgba(232,224,213,0.52)", lineHeight: 1.85, fontFamily: "'DM Sans', sans-serif", marginBottom: 24 }}>
-          Full-stack developer with a knack for turning complex problems into clean, efficient web solutions that look great and work even better.
-        </p>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 1, background: "rgba(196,164,118,0.07)", marginLeft: -36, marginRight: -36 }}>
-          {[
-            { Icon: Trophy, val: "4th", sub: "Algoblitz 2.0" },
-            { Icon: Rocket, val: "120+", sub: "Teams Beat" },
-            { Icon: Star, val: "8.88", sub: "CGPA" },
-          ].map(s => (
-            <div key={s.sub} style={{ background: "#080808", padding: "16px 10px", textAlign: "center" }}>
-              <s.Icon size={16} color="#c4a476" strokeWidth={1.5} style={{ margin: "0 auto 6px" }} />
-              <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.05rem", color: "#c4a476", fontWeight: 700 }}>{s.val}</div>
-              <div style={{ fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(232,224,213,0.28)", fontFamily: "'DM Sans', sans-serif", marginTop: 2 }}>{s.sub}</div>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
@@ -372,7 +327,6 @@ export default function Portfolio() {
     return () => window.removeEventListener("mousemove", fn);
   }, []);
 
-  // Close mobile menu on scroll
   useEffect(() => {
     if (menuOpen) setMenuOpen(false);
   }, [scrollY]);
@@ -409,7 +363,6 @@ export default function Portfolio() {
           <button onClick={() => go("home")} onMouseEnter={() => setCScale(1.8)} onMouseLeave={() => setCScale(1)}
             style={{ background: "none", border: "none", cursor: isMobile ? "pointer" : "none", fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.25rem", fontWeight: 700, color: "#c4a476" }}>S·K</button>
 
-          {/* Desktop nav links */}
           {!isMobile && (
             <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
               {NAV_SECTIONS.map(s => (
@@ -422,16 +375,14 @@ export default function Portfolio() {
             </div>
           )}
 
-          {/* Mobile hamburger */}
           {isMobile && (
             <button onClick={() => setMenuOpen(o => !o)}
-              style={{ background: "none", border: "1px solid rgba(196,164,118,0.25)", cursor: "pointer", padding: "6px 8px", display: "flex", alignItems: "center", justifyContent: "center", color: "#c4a476" }}>
+              style={{ background: "none", border: "1px solid rgba(196,164,118,0.25)", cursor: "pointer", padding: "6px 8px", display: "flex", alignItems: "center", justifyContent: "center" }}>
               {menuOpen ? <X size={18} color="#c4a476" strokeWidth={1.5} /> : <Menu size={18} color="#c4a476" strokeWidth={1.5} />}
             </button>
           )}
         </div>
 
-        {/* Mobile dropdown menu */}
         {isMobile && menuOpen && (
           <div style={{ background: "rgba(8,8,8,0.98)", borderTop: "1px solid rgba(196,164,118,0.1)", padding: "8px 0 16px" }}>
             {NAV_SECTIONS.map(s => (
@@ -449,7 +400,6 @@ export default function Portfolio() {
         <DotGrid />
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "65vw", height: "65vh", background: "radial-gradient(ellipse,rgba(196,164,118,0.07) 0%,transparent 68%)", pointerEvents: "none" }} />
 
-        {/* Side labels — desktop only */}
         {!isMobile && [
           { side: "left", text: "Portfolio 2025  ·  Full-Stack Developer" },
           { side: "right", text: "Dharwad, Karnataka  ·  Open to Internships" },
@@ -458,8 +408,6 @@ export default function Portfolio() {
         ))}
 
         <div style={{ maxWidth: MAX, margin: "0 auto", padding: isMobile ? "0 24px" : "0 80px", position: "relative", zIndex: 10, width: "100%", paddingTop: isMobile ? 100 : 80, paddingBottom: isMobile ? 60 : 0 }}>
-
-          {/* Name */}
           <div style={{ opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(36px)", transition: "all 0.95s cubic-bezier(.23,1,.32,1) 0.18s" }}>
             <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: isMobile ? "clamp(3rem, 16vw, 5rem)" : "clamp(3.2rem, 8.5vw, 8rem)", fontWeight: 900, lineHeight: 0.9, letterSpacing: "-0.03em", color: "#e8e0d5", margin: 0 }}>
               Sudhanva
@@ -468,16 +416,9 @@ export default function Portfolio() {
             </h1>
           </div>
 
-          {/* Role row */}
           <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 8 : 16, marginTop: 28, flexWrap: "wrap", opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)", transition: "all 0.75s ease 0.35s" }}>
             <Code2 size={14} color="#c4a476" strokeWidth={1.5} />
             <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: isMobile ? "0.9rem" : "1.05rem", color: "#c4a476", fontStyle: "italic" }}>Full-Stack Developer</span>
-            {!isMobile && <div style={{ width: 1, height: 16, background: "rgba(196,164,118,0.3)" }} />}
-            {!isMobile && <GraduationCap size={14} color="rgba(232,224,213,0.4)" strokeWidth={1.5} />}
-            {!isMobile && <span style={{ fontSize: "0.82rem", color: "rgba(232,224,213,0.42)", fontFamily: "'DM Sans', sans-serif" }}>KLE Technological University</span>}
-            {!isMobile && <div style={{ width: 1, height: 16, background: "rgba(196,164,118,0.3)" }} />}
-            <Star size={13} color="#c4a476" strokeWidth={1.5} />
-            <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "0.95rem", color: "#c4a476", fontWeight: 700 }}>8.88 CGPA</span>
           </div>
 
           {isMobile && (
@@ -488,24 +429,21 @@ export default function Portfolio() {
           )}
 
           <p style={{ fontSize: "0.875rem", color: "rgba(232,224,213,0.48)", lineHeight: 1.85, fontFamily: "'DM Sans', sans-serif", maxWidth: 480, marginTop: 20, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(16px)", transition: "all 0.75s ease 0.48s" }}>
-            2nd-year CSE student with a strong foundation in DSA and RESTful systems. Passionate about AI-driven solutions — actively seeking internship opportunities.
+            2nd-year CSE student building fast, scalable web applications from the ground up — turning ideas into polished, production-ready products with clean code and sharp interfaces.
           </p>
 
-          {/* CTAs */}
           <div style={{ display: "flex", gap: 10, marginTop: 36, flexWrap: "wrap", opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(16px)", transition: "all 0.75s ease 0.6s" }}>
             <button onClick={() => go("projects")} onMouseEnter={() => setCScale(0.5)} onMouseLeave={() => setCScale(1)}
               style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 22px", background: "linear-gradient(135deg,#b8860b,#c4a476,#e8c97a)", color: "#080808", fontSize: 10, fontFamily: "'DM Sans', sans-serif", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", border: "none", cursor: isMobile ? "pointer" : "none", boxShadow: "0 6px 24px rgba(196,164,118,0.22)", transition: "opacity 0.2s" }}
               onMouseOver={e => e.currentTarget.style.opacity = "0.88"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
               <Layers size={12} strokeWidth={2} /> View Projects
             </button>
-
             <button onClick={() => setResumeOpen(true)} onMouseEnter={() => setCScale(0.5)} onMouseLeave={() => setCScale(1)}
               style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 22px", background: "transparent", border: "1px solid rgba(196,164,118,0.35)", color: "#c4a476", fontSize: 10, fontFamily: "'DM Sans', sans-serif", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", cursor: isMobile ? "pointer" : "none", transition: "all 0.22s" }}
               onMouseOver={e => { e.currentTarget.style.background = "rgba(196,164,118,0.09)"; e.currentTarget.style.borderColor = "#c4a476"; }}
               onMouseOut={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(196,164,118,0.35)"; }}>
               <FileText size={12} strokeWidth={1.5} /> View Resume
             </button>
-
             {[
               { Icon: Github, label: "GitHub", href: "https://github.com/Sudhanva-Kulkarni" },
               { Icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/sudhanva-kulkarni-210642388" },
@@ -518,27 +456,8 @@ export default function Portfolio() {
               </a>
             ))}
           </div>
-
-          {/* Stats row */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, auto)", gap: isMobile ? "20px 32px" : "0 40px", marginTop: 52, paddingTop: 32, borderTop: "1px solid rgba(196,164,118,0.08)", opacity: loaded ? 1 : 0, transition: "opacity 0.75s ease 0.85s" }}>
-            {[
-              { Icon: Star, val: "8.88", label: "CGPA" },
-              { Icon: Rocket, val: "2+", label: "Projects Shipped" },
-              { Icon: BookOpen, val: "2028", label: "Grad Year" },
-              { Icon: Cpu, val: "10+", label: "Technologies" },
-            ].map(s => (
-              <div key={s.label} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <s.Icon size={18} color="#c4a476" strokeWidth={1.5} />
-                <div>
-                  <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.4rem", fontWeight: 700, color: "#c4a476", lineHeight: 1 }}>{s.val}</div>
-                  <div style={{ fontSize: 10, color: "rgba(232,224,213,0.32)", fontFamily: "'DM Sans', sans-serif", marginTop: 3, letterSpacing: "0.05em" }}>{s.label}</div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* Scroll hint */}
         <div style={{ position: "absolute", bottom: 28, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, opacity: loaded ? 1 : 0, transition: "opacity 0.75s ease 1.2s" }}>
           <span style={{ fontSize: 9, letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(196,164,118,0.35)", fontFamily: "'DM Sans', sans-serif" }}>Scroll</span>
           <ChevronDown size={14} color="rgba(196,164,118,0.4)" strokeWidth={1.5} style={{ animation: "bounce 1.8s ease infinite" }} />
@@ -546,33 +465,30 @@ export default function Portfolio() {
       </section>
 
       {/* ── ABOUT ── */}
-      <section id="about" style={{ padding: isMobile ? "60px 0" : "60px 0", position: "relative" }}>
+      <section id="about" style={{ padding: "60px 0", position: "relative" }}>
         <div style={{ maxWidth: MAX, margin: "0 auto", padding: PAD }}>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(320px, 1fr))", gap: isMobile ? 40 : 64, alignItems: "center" }}>
-            <AboutCard />
-            <div>
-              <SectionHead eyebrow="Who I Am" title={<>Building the <span style={{ color: "#c4a476" }}>future,</span> one commit at a time.</>} />
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {[
-                  { Icon: GraduationCap, label: "Education", val: "B.E. Computer Science — KLE Technological University, Hubballi (2028)" },
-                  { Icon: MapPin, label: "Location", val: "Dharwad, Karnataka, India" },
-                  { Icon: Star, label: "CGPA", val: "8.88 / 10" },
-                  { Icon: Phone, label: "Phone", val: "7899450140" },
-                  { Icon: Mail, label: "Email", val: "sudhanvakulkarni1305@gmail.com" },
-                ].map(item => (
-                  <div key={item.label}
-                    style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "12px 16px", border: "1px solid rgba(196,164,118,0.07)", background: "rgba(196,164,118,0.02)", transition: "all 0.2s" }}
-                    onMouseOver={e => { e.currentTarget.style.borderColor = "rgba(196,164,118,0.26)"; e.currentTarget.style.background = "rgba(196,164,118,0.05)"; }}
-                    onMouseOut={e => { e.currentTarget.style.borderColor = "rgba(196,164,118,0.07)"; e.currentTarget.style.background = "rgba(196,164,118,0.02)"; }}>
-                    <item.Icon size={13} color="#c4a476" strokeWidth={1.5} style={{ marginTop: 3, flexShrink: 0 }} />
-                    <div>
-                      <span style={{ fontSize: 9.5, letterSpacing: "0.14em", textTransform: "uppercase", color: "#c4a476", fontFamily: "'DM Sans', sans-serif" }}>{item.label}</span>
-                      <p style={{ fontSize: "0.82rem", color: "rgba(232,224,213,0.62)", fontFamily: "'DM Sans', sans-serif", marginTop: 2, lineHeight: 1.5, wordBreak: "break-word" }}>{item.val}</p>
-                    </div>
-                  </div>
-                ))}
+          <SectionHead eyebrow="Who I Am" title={<>Building the <span style={{ color: "#c4a476" }}>future,</span> one commit at a time.</>} />
+
+          {/* Info grid */}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? 10 : 14 }}>
+            {[
+              { Icon: GraduationCap, label: "Education", val: "B.E. Computer Science — KLE Technological University, Hubballi (2028)" },
+              { Icon: MapPin,        label: "Location",  val: "Dharwad, Karnataka, India" },
+              { Icon: Star,          label: "CGPA",      val: "8.88" },
+              { Icon: Phone,         label: "Phone",     val: "+91 7899450140" },
+              { Icon: Mail,          label: "Email",     val: "sudhanvakulkarni1305@gmail.com" },
+            ].map(item => (
+              <div key={item.label}
+                style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "14px 18px", border: "1px solid rgba(196,164,118,0.07)", background: "rgba(196,164,118,0.02)", transition: "all 0.2s" }}
+                onMouseOver={e => { e.currentTarget.style.borderColor = "rgba(196,164,118,0.26)"; e.currentTarget.style.background = "rgba(196,164,118,0.05)"; }}
+                onMouseOut={e => { e.currentTarget.style.borderColor = "rgba(196,164,118,0.07)"; e.currentTarget.style.background = "rgba(196,164,118,0.02)"; }}>
+                <item.Icon size={13} color="#c4a476" strokeWidth={1.5} style={{ marginTop: 3, flexShrink: 0 }} />
+                <div>
+                  <span style={{ fontSize: 9.5, letterSpacing: "0.14em", textTransform: "uppercase", color: "#c4a476", fontFamily: "'DM Sans', sans-serif" }}>{item.label}</span>
+                  <p style={{ fontSize: "0.82rem", color: "rgba(232,224,213,0.62)", fontFamily: "'DM Sans', sans-serif", marginTop: 2, lineHeight: 1.5, wordBreak: "break-word" }}>{item.val}</p>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -626,7 +542,6 @@ export default function Portfolio() {
           <p style={{ fontSize: "0.875rem", color: "rgba(232,224,213,0.42)", lineHeight: 1.85, fontFamily: "'DM Sans', sans-serif", marginBottom: 40 }}>
             Actively seeking internship opportunities in full-stack or AI development. If you're working on something exciting, I'd love to be part of it.
           </p>
-
           <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 44 }}>
             <a href="mailto:sudhanvakulkarni1305@gmail.com" onMouseEnter={() => setCScale(0.5)} onMouseLeave={() => setCScale(1)}
               style={{ display: "flex", alignItems: "center", gap: 8, padding: "13px 24px", background: "linear-gradient(135deg,#b8860b,#c4a476,#e8c97a)", color: "#080808", fontSize: 11, fontFamily: "'DM Sans', sans-serif", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", textDecoration: "none", boxShadow: "0 6px 22px rgba(196,164,118,0.22)", transition: "opacity 0.2s" }}
@@ -640,13 +555,12 @@ export default function Portfolio() {
               <Linkedin size={12} strokeWidth={1.5} /> LinkedIn
             </a>
           </div>
-
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 12 }}>
             {[
-              { Icon: Mail, label: "Email", val: "sudhanvakulkarni\n1305@gmail.com", href: "mailto:sudhanvakulkarni1305@gmail.com" },
+              { Icon: Mail, label: "Email", val: "sudhanvakulkarni1305@gmail.com", href: "mailto:sudhanvakulkarni1305@gmail.com" },
               { Icon: Github, label: "GitHub", val: "Sudhanva-Kulkarni", href: "https://github.com/Sudhanva-Kulkarni" },
               { Icon: Linkedin, label: "LinkedIn", val: "sudhanva-kulkarni", href: "https://www.linkedin.com/in/sudhanva-kulkarni-210642388" },
-              { Icon: Phone, label: "Phone", val: "7899450140", href: "tel:7899450140" },
+              { Icon: Phone, label: "Phone", val: "+91 7899450140", href: "tel:+917899450140" },
             ].map(c => (
               <a key={c.label} href={c.href} target="_blank" rel="noreferrer" onMouseEnter={() => setCScale(1.4)} onMouseLeave={() => setCScale(1)}
                 style={{ padding: "20px 14px", border: "1px solid rgba(196,164,118,0.1)", background: "rgba(196,164,118,0.02)", textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", gap: 7, transition: "all 0.22s" }}
@@ -676,7 +590,6 @@ export default function Portfolio() {
         body { background: #080808; }
         @media (hover: none) { body { cursor: auto !important; } a, button { cursor: pointer !important; } }
         @media (hover: hover) { body { cursor: none !important; } a, button { cursor: none !important; } }
-        @keyframes float { 0%,100% { transform: translateY(0) rotate(0deg); } 40% { transform: translateY(-12px) rotate(1deg); } 70% { transform: translateY(-6px) rotate(-0.8deg); } }
         @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
