@@ -79,9 +79,19 @@ export default function Portfolio() {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    const form = e.target;
+    const data = new FormData(form);
+    const res = await fetch('https://formspree.io/f/xnjbryde', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' },
+    });
+    if (res.ok) {
+      setFormSubmitted(true);
+      form.reset();
+    }
   };
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -799,6 +809,7 @@ export default function Portfolio() {
                   <label className="font-mono font-bold mb-1 uppercase text-xs">Identity</label>
                   <input
                     type="text"
+                    name="name"
                     placeholder="NAME / COMPANY"
                     className="bg-white border-2 border-black p-3 font-bold focus:outline-none focus:bg-neo-yellow focus:shadow-hard-sm transition-all cursor-hover"
                   />
@@ -807,6 +818,7 @@ export default function Portfolio() {
                   <label className="font-mono font-bold mb-1 uppercase text-xs">Coordinates</label>
                   <input
                     type="email"
+                    name="email"
                     placeholder="EMAIL ADDRESS"
                     className="bg-white border-2 border-black p-3 font-bold focus:outline-none focus:bg-neo-yellow focus:shadow-hard-sm transition-all cursor-hover"
                   />
@@ -815,6 +827,7 @@ export default function Portfolio() {
                   <label className="font-mono font-bold mb-1 uppercase text-xs">Transmission</label>
                   <textarea
                     rows={4}
+                    name="message"
                     placeholder="PROJECT DETAILS..."
                     className="bg-white border-2 border-black p-3 font-bold focus:outline-none focus:bg-neo-yellow focus:shadow-hard-sm transition-all resize-none cursor-hover"
                   ></textarea>
